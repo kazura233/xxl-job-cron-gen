@@ -2,6 +2,8 @@
 
 一个基于 React + TypeScript 的 Cron 表达式可视化生成器组件，支持 React 18 和 React 19。
 
+**在线示例：** https://kazura233.github.io/xxl-job-cron-gen/
+
 ## 快速开始
 
 ```tsx
