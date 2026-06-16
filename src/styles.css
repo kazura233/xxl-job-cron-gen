@@ -1,0 +1,249 @@
+/**
+ * xxl-job-cron-gen 组件样式
+ *
+ * 类名前缀统一使用 .cron-gen-，避免与消费方样式冲突。
+ * 如需覆盖，直接在消费方 CSS 中重写对应类名即可。
+ */
+
+/* ─── 根容器 ─────────────────────────────────────────────── */
+
+/* 组件最外层容器，宽度撑满父元素 */
+.cron-gen-container {
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ─── Tab 导航 ───────────────────────────────────────────── */
+
+/* Tab 标签页横向列表，flex 布局支持在窄屏下自动换行 */
+.cron-gen-tabs {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+}
+
+/* 单个 Tab 标签项，默认呈灰色背景 */
+.cron-gen-tab-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-bottom: none;
+  /* margin-bottom: -1px 使激活态的底部边框与内容区顶部边框重叠，实现"连通"效果 */
+  margin-bottom: -1px;
+  background-color: #f5f5f5;
+  color: #666;
+  transition: all 0.3s;
+  user-select: none;
+}
+
+/* 悬停时加深背景色，提供交互反馈 */
+.cron-gen-tab-item:hover {
+  color: #333;
+  background-color: #e8e8e8;
+}
+
+/* 激活态：白色背景 + 三边边框 + 底部透明，与内容区无缝衔接 */
+.cron-gen-tab-item.active {
+  background-color: #fff;
+  border-color: #ddd;
+  border-bottom-color: #fff;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ─── Tab 内容区 ─────────────────────────────────────────── */
+
+/* Tab 内容容器，与导航共用左/右/底边框，顶部边框由 Tab 导航底部边框承担 */
+.cron-gen-tab-content {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-top: none;
+  background-color: #fff;
+  /* 固定最小高度，防止切换 Tab 时容器高度跳动 */
+  min-height: 300px;
+}
+
+/* 所有面板始终挂载在 DOM 中，通过 display 控制显隐，避免切换时重置内部状态 */
+.cron-gen-tab-panel {
+  display: none;
+}
+
+/* 当前激活的面板 */
+.cron-gen-tab-panel.active {
+  display: block;
+}
+
+/* ─── 配置行 ─────────────────────────────────────────────── */
+
+/* 每个配置模式占一行，flex 布局使 radio、文字、输入框水平对齐 */
+.cron-gen-line {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* label 包裹 radio + 文字，使整个区域都可点击 */
+.cron-gen-line label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* radio 按钮与右侧文字保持间距 */
+.cron-gen-line input[type='radio'] {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+/* 行内文字说明（如"秒"、"天开始"等） */
+.cron-gen-line > span {
+  display: inline-block;
+}
+
+/* ─── 数字输入框 ──────────────────────────────────────────── */
+
+/* 用于范围/间隔参数的紧凑输入框，固定宽度以保持排版整齐 */
+.cron-gen-input {
+  width: 60px;
+  height: 28px;
+  padding: 4px 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+/* 悬停高亮边框（禁用态除外） */
+.cron-gen-input:hover:not(:disabled) {
+  border-color: #40a9ff;
+}
+
+/* 聚焦态：蓝色边框 + 外发光，与 Ant Design 风格保持一致 */
+.cron-gen-input:focus {
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 禁用态：灰色背景 + 禁用光标，对应当前模式未激活的输入框 */
+.cron-gen-input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  color: #999;
+}
+
+/* ─── 指定模式复选框列表 ──────────────────────────────────── */
+
+/* 复选框列表容器，浅灰背景与配置行区域形成视觉分层 */
+.cron-gen-checkbox-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 4px;
+}
+
+/* 单个复选框项，固定最小宽度保证数字对齐，悬停时高亮背景 */
+.cron-gen-checkbox-item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  user-select: none;
+  min-width: 60px;
+}
+
+/* 悬停反馈 */
+.cron-gen-checkbox-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* checkbox 与标签文字的间距 */
+.cron-gen-checkbox-item input[type='checkbox'] {
+  margin-right: 4px;
+  cursor: pointer;
+}
+
+/* 禁用态（当前模式不是"指定"时所有复选框均禁用） */
+.cron-gen-checkbox-item input[type='checkbox']:disabled {
+  cursor: not-allowed;
+}
+
+/* 复选框标签文字略小于正文，减少视觉噪音 */
+.cron-gen-checkbox-item span {
+  font-size: 13px;
+}
+
+/* ─── 结果展示区 ──────────────────────────────────────────── */
+
+/* 位于组件底部，实时展示当前生成的 Cron 表达式 */
+.cron-gen-result {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+}
+
+/* "Cron 表达式："标签 */
+.cron-gen-result-label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* 表达式值：等宽字体 + 蓝色高亮，user-select: all 方便用户一键全选复制 */
+.cron-gen-result-value {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  color: #1890ff;
+  word-break: break-all;
+  user-select: all;
+}
+
+/* ─── 响应式（≤768px） ───────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* 小屏下整体字号缩小，Tab 间距收紧 */
+  .cron-gen-tabs {
+    font-size: 12px;
+  }
+
+  .cron-gen-tab-item {
+    padding: 8px 12px;
+  }
+
+  .cron-gen-tab-content {
+    padding: 12px;
+  }
+
+  .cron-gen-line {
+    font-size: 13px;
+  }
+
+  /* 输入框在小屏下适当缩窄 */
+  .cron-gen-input {
+    width: 50px;
+    height: 26px;
+    font-size: 13px;
+  }
+
+  /* 复选框项最小宽度缩小，每行可容纳更多项 */
+  .cron-gen-checkbox-item {
+    min-width: 50px;
+    font-size: 12px;
+  }
+}
