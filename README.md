@@ -7,12 +7,11 @@
 ## 快速开始
 
 ```tsx
-// 导入组件
-import { CronGen } from '@/components/cron'
+import { CronGen } from 'xxl-job-cron-gen'
 
 // 如果需要类型定义和工具函数
-import type { CronGenProps, CronValue } from '@/components/cron/exports'
-import { parseCronExpression, validateCronExpression } from '@/components/cron/exports'
+import type { CronGenProps, CronValue } from 'xxl-job-cron-gen'
+import { parseCronExpression, validateCronExpression } from 'xxl-job-cron-gen'
 ```
 
 ## 特性
@@ -219,7 +218,7 @@ validateCronExpression('invalid') // false
 | `0 0 12 * * ?`   | 每天中午12点                       |
 | `0 15 10 * * ?`  | 每天上午10:15                      |
 | `0 0/5 14 * * ?` | 每天下午2点开始到2:55，每5分钟一次 |
-| `0 0 12 ? * WED` | 每周三中午12点                     |
+| `0 0 12 ? * 4`   | 每周三中午12点（周三=4）           |
 | `0 0 12 1 * ?`   | 每月1号中午12点                    |
 | `0 15 10 15 * ?` | 每月15号上午10:15                  |
 | `0 0 0 L * ?`    | 每月最后一天零点                   |
@@ -230,23 +229,23 @@ validateCronExpression('invalid') // false
 
 ```css
 /* 修改标签页样式 */
-.cron-tab-item {
+.cron-gen-tab-item {
   padding: 12px 20px;
   font-size: 16px;
 }
 
 /* 修改激活状态的标签页 */
-.cron-tab-item.active {
+.cron-gen-tab-item.active {
   color: #1890ff;
 }
 
 /* 修改输入框样式 */
-.cron-input {
+.cron-gen-input {
   border-color: #1890ff;
 }
 
 /* 修改结果展示区域 */
-.cron-result {
+.cron-gen-result {
   background-color: #f0f5ff;
 }
 ```
