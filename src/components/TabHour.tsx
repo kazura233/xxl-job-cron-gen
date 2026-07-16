@@ -94,6 +94,9 @@ export const TabHour: React.FC<TabPanelProps> = ({ value, onChange }) => {
     // 切换到指定模式时，若尚未选中任何值则默认选中 0
     if (newMode === '4' && specificValues.length === 0) {
       setSpecificValues(['0'])
+      // setState 异步，须同步把新值传给 generateValue，否则会生成 ? 触发 radio 跳变
+      generateValue('4', { specificValues: ['0'] })
+      return
     }
     generateValue(newMode)
   }

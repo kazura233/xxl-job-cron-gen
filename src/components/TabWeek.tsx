@@ -144,6 +144,9 @@ export const TabWeek: React.FC<TabPanelProps> = ({ value, onChange }) => {
     // 切换到指定模式时，若尚未选中任何值则默认选中周日（1）
     if (newMode === '6' && specificValues.length === 0) {
       setSpecificValues(['1'])
+      // setState 异步，须同步把新值传给 generateValue，否则会生成 ? 触发 radio 跳变
+      generateValue('6', { specificValues: ['1'] })
+      return
     }
     generateValue(newMode)
   }

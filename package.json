@@ -1,6 +1,6 @@
 {
   "name": "xxl-job-cron-gen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "一个基于 React + TypeScript 的 Cron 表达式可视化生成器组件",
   "keywords": [
     "react",
@@ -22,14 +22,20 @@
     "email": "kazira233@gmail.com"
   },
   "license": "MIT",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./dist/styles.css": "./dist/styles.css"
   },

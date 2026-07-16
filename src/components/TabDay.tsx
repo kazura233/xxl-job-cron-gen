@@ -123,6 +123,10 @@ export const TabDay: React.FC<TabPanelProps> = ({ value, onChange }) => {
     // 切换到指定模式时，若尚未选中任何值则默认选中 1
     if (newMode === '7' && specificValues.length === 0) {
       setSpecificValues(['1'])
+      // 需同步把新值传给 generateValue：setState 异步，此刻读 specificValues 仍为空，
+      // 会生成 ?，经父组件回传后又被 useEffect 反解析成"不指定"，导致 radio 跳变
+      generateValue('7', { specificValues: ['1'] })
+      return
     }
     generateValue(newMode)
   }

@@ -48,20 +48,21 @@ export const CronGen: React.FC<CronGenProps> = ({
    */
   const handleFieldChange = useCallback(
     (field: CronTabType, newValue: string) => {
-      setCronValue((prev) => {
-        const updated = { ...prev, [field]: newValue }
+      const updated = { ...cronValue, [field]: newValue }
 
-        if (field === 'day' && newValue !== '?') {
-          updated.week = '?'
-        } else if (field === 'week' && newValue !== '?') {
-          updated.day = '?'
-        }
+      if (field === 'day' && newValue !== '?') {
+        updated.week = '?'
+      } else if (field === 'week' && newValue !== '?') {
+        updated.day = '?'
+      }
 
-        onChange?.(generateCronExpression(updated))
-        return updated
-      })
+      // onChange 必须在 setState 更新函数之外调用：在 updater 内触发父组件
+      // setState 会在 CronGen 渲染期间更新父组件，React 会报
+      // "Cannot update a component while rendering a different component"
+      setCronValue(updated)
+      onChange?.(generateCronExpression(updated))
     },
-    [onChange],
+    [cronValue, onChange],
   )
 
   const tabs: Array<{ key: CronTabType; label: string }> = [
