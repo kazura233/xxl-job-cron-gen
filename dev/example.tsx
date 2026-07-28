@@ -130,6 +130,41 @@ export function ControlledExample() {
 }
 
 /**
+ * 手动输入示例——用户直接在输入框里编辑表达式，组件反向解析并更新 UI。
+ * 可用于验证前导零、非规范写法等场景是否被正确处理。
+ */
+export function ManualInputExample() {
+  const [value, setValue] = useState('* * 02 * * ?')
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h2>手动输入示例</h2>
+      <div style={{ marginBottom: 12 }}>
+        <label>
+          <strong>直接输入 Cron 表达式：</strong>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            style={{
+              marginLeft: 10,
+              padding: '4px 8px',
+              width: 320,
+              fontFamily: 'monospace',
+            }}
+          />
+        </label>
+      </div>
+      <CronGen value={value} onChange={setValue} />
+      <div style={{ marginTop: 20 }}>
+        <strong>当前表达式：</strong>
+        <code>{value}</code>
+      </div>
+    </div>
+  )
+}
+
+/**
  * 特殊字符示例——展示 L、W、# 的使用场景。
  * 这三个字符是本组件相比常见 Cron 库的扩展能力（来自 XXL-JOB 规范）。
  */

@@ -97,6 +97,13 @@ export function parseFieldValue(value: string): {
     | 'nthWeek'
   values: string[]
 } {
+  // 规范化数字字符串：去除前导零（"02" → "2"），保证后续比较基于统一形式。
+  // 若不是纯数字则原样返回，避免破坏 "*" 等特殊标记。
+  const normalizeNum = (v: string): string => {
+    const n = parseInt(v, 10)
+    return !isNaN(n) && /^\d+$/.test(v) ? String(n) : v
+  }
+
   if (value === '*') {
     return { type: 'every', values: [] }
   }
@@ -109,32 +116,32 @@ export function parseFieldValue(value: string): {
   }
   if (value.includes('-')) {
     const [start, end] = value.split('-')
-    return { type: 'range', values: [start, end] }
+    return { type: 'range', values: [normalizeNum(start), normalizeNum(end)] }
   }
   if (value.includes('/')) {
     const [start, interval] = value.split('/')
-    return { type: 'interval', values: [start, interval] }
+    return { type: 'interval', values: [normalizeNum(start), normalizeNum(interval)] }
   }
   // W 在 L 之前：避免 "15W" 被后续 L 逻辑误判
   if (value.includes('W')) {
     const day = value.replace('W', '')
-    return { type: 'workday', values: [day] }
+    return { type: 'workday', values: [normalizeNum(day)] }
   }
   // 多字符含 L：如 "2L" 表示本月最后一个周二
   if (value.includes('L') && value.length > 1) {
     const day = value.replace('L', '')
-    return { type: 'lastweek', values: [day] }
+    return { type: 'lastweek', values: [normalizeNum(day)] }
   }
   if (value.includes('#')) {
     const [day, nth] = value.split('#')
-    return { type: 'nthWeek', values: [day, nth] }
+    return { type: 'nthWeek', values: [normalizeNum(day), normalizeNum(nth)] }
   }
   if (value.includes(',')) {
-    return { type: 'specific', values: value.split(',') }
+    return { type: 'specific', values: value.split(',').map(normalizeNum) }
   }
 
   // 单个数值也归为 specific，由各 Tab 组件按需处理
-  return { type: 'specific', values: [value] }
+  return { type: 'specific', values: [normalizeNum(value)] }
 }
 
 /**

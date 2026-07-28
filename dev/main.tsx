@@ -6,6 +6,7 @@ import {
   CustomStyleExample,
   MultipleInstancesExample,
   ControlledExample,
+  ManualInputExample,
   SpecialCharsExample,
 } from './example'
 
@@ -24,6 +25,8 @@ root.render(
       <MultipleInstancesExample />
       <hr />
       <ControlledExample />
+      <hr />
+      <ManualInputExample />
       <hr />
       <SpecialCharsExample />
     </div>
