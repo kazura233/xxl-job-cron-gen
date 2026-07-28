@@ -1,6 +1,6 @@
 {
   "name": "xxl-job-cron-gen",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "一个基于 React + TypeScript 的 Cron 表达式可视化生成器组件",
   "keywords": [
     "react",
